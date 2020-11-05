@@ -35,6 +35,8 @@ def act2():
     time.sleep()
 
 def halfRotation():
+    setup()
+    
     GPIO.setmode(GPIO.BOARD)
     #GPIO.setwarnings(False)
 
@@ -69,8 +71,6 @@ def halfRotation():
             for pin in range(4):
                 GPIO.output(ControlPin[pin], seqB[halfstep] [pin])
                 time.sleep(0.0008)
-                
-    return true
     
-    
+
 GPIO.cleanup()

@@ -1,5 +1,5 @@
 from bluetooth import *
-import MotorTurn as motor
+# import MotorTurn as motor
 import PlaySound as play
 
 server_socket=BluetoothSocket(RFCOMM)
@@ -15,11 +15,15 @@ while True:
     print("Accepted connection from ",address)
     res = client_socket.recv(1024)
     client_socket.send(res)
-    if res == b'start':
-        motor.turnMotor()
-    if res == b'1':
+    if res.isdigit(): # Håndterer alle enkelt-krald / preview af lyd uden motorrespons
         play.playSingleSound(res)
-    if res == b'q':
+    if res.startswith("b-"): # Systemlyd
+        play.playSystemSounds(1)
+    if res.startswith("s-"): # Sekvens
+        play.playSequence(res)
+    if res.startwith("a-"): # Lydbog
+        play.playAudioBook(res)
+    if res == b'q': # Midlertidig sluk-metode
         print("Goodnight SaMo")
         client_socket.close()
         server_socket.close()
