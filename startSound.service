@@ -1,0 +1,16 @@
+[Unit]
+Description=SaMo
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/startSound.py
+WorkingDirectory=/home/pi/
+StandardOutput=inherit
+StandardError=inherit
+Restart=no
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+
+

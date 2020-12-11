@@ -1,0 +1,15 @@
+[Unit]
+Description=SaMo
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/SaMo.py
+ExecStartPre=/bin/sleep 10
+WorkingDirectory=/home/pi/
+StandardOutput=inherit
+StandardError=inherit
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=multi-user.target
