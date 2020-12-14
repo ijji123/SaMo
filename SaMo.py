@@ -40,9 +40,7 @@ while True:
     if res.startswith(b"a-"): # Lydbog
         play.playAudioBook(res)
     if res.startswith(b"q"): # Midlertidig sluk-metode
-        #play.killAudio()
-        quitCommand = "pkill omxplayer"
-        os.system(quitCommand)
+        play.killAudio()
         play.killMotor()
     if res == b'kill': # Midlertidig sluk-metode
         client_socket.close()

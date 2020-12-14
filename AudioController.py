@@ -13,6 +13,7 @@ AudioBookList= ["Lydboeger/DTBBAudio3Seffekter.mp3"]
 #motor_thread = Thread(target=motor.TBBRotation, daemon=True)
 motorprocess = multiprocessing.Process(target=motor.TBBRotation)
 
+
 def playSystemSound(command): # Her skal der ikke motor respons til, faerdig as is
     string = str(command)
     string = string.replace("b","")
@@ -55,15 +56,16 @@ def playAudioBook(command):
     number = int(string)
     player = OMXPlayer(AudioBookList[number])
     motorprocess.start()
+    #motorprocess.join()
     #motor.TBBRotation() #seneste
 #   motor_thread = Thread(target=motor.TBBRotation)
     #motor_thread.start()
     #motor_thread.join()
 
-
 def killAudio():
     quitCommand = "pkill omxplayer"
     os.system(quitCommand)
+    
 
 def killMotor():
     #quitCommand = "pkill -f MotorController.py"
@@ -75,3 +77,5 @@ def killMotor():
     #quit()
     #return
     motorprocess.terminate()
+    motorprocess.join()
+    

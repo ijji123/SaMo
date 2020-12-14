@@ -30,31 +30,31 @@ def setup():
 
 def act(fileNumber):
     if fileNumber ==0:
-        frontHalfRotation()
+        frontHalfRotationB()
         backHalfRotation()
     if fileNumber==1:
         backHalfRotation()
-        backHalfRotation()
+        backHalfRotationB()
     if fileNumber==2:
         backHalfRotation()
         frontHalfRotation()
     if fileNumber==3:
-        frontHalfRotation()
-        backHalfRotation()
+        frontHalfRotationB()
+        backHalfRotationB()
     if fileNumber==4:
         backHalfRotation()
-        backHalfRotation()
+        backHalfRotationB()
     if fileNumber==5:
-        backHalfRotation()
+        backHalfRotationB()
         frontHalfRotation()
     if fileNumber==6:
-        frontHalfRotation()
+        frontHalfRotationB()
         backHalfRotation()
     if fileNumber==7:
         backHalfRotation()
-        backHalfRotation()
+        backHalfRotationB()
     if fileNumber==8:
-        backHalfRotation()
+        backHalfRotationB()
         frontHalfRotation()
 
         
