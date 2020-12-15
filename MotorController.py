@@ -13,7 +13,7 @@ def setup():
     # Set all pins as output
     for pin in ControlPin:
         GPIO.setup(pin,GPIO.OUT)
-        GPIO.output(pin, 0)
+        GPIO.output(pin, 0) 
 
         seqA = [
             [1,0,0,0],
@@ -37,7 +37,7 @@ def act(fileNumber):
         backHalfRotationB()
     if fileNumber==2:
         backHalfRotation()
-        frontHalfRotation()
+        frontHalfRotationB()
     if fileNumber==3:
         frontHalfRotationB()
         backHalfRotationB()
@@ -187,8 +187,8 @@ def backHalfRotationB():
                     GPIO.output(ControlPinB[pin], seqB[halfstep] [pin])
                     time.sleep(0.0002)
 
-def cleanUp():
-    GPIO.cleanup()
+#def cleanUp():
+#    GPIO.cleanup()
 
 
 def backFullRotation():

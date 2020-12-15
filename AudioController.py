@@ -40,13 +40,14 @@ def playSequence(seq):
     for i in seqList:
         file = i
         fileNumber = int(file)
-        motor_thread =Thread(target=motor.act, args=(fileNumber,), daemon=True)
-        motor_thread.start()
+        #motor_thread =Thread(target=motor.act, args=(fileNumber,), daemon=True)
+        #motor_thread.start()
+        
         
         player = OMXPlayer(SongList[fileNumber])
-        #motor.act(fileNumber)
+        motor.act(fileNumber) 
        # motor_thread.join()
-        time.sleep(4)
+        #time.sleep(4.2)
         
 def playAudioBook(command):
     string = str(command)
@@ -68,6 +69,7 @@ def killAudio():
     
 
 def killMotor():
+#     os.kill(1149, 9)
     #quitCommand = "pkill -f MotorController.py"
     #os.system(quitCommand)
     #print("reached audio")
@@ -76,6 +78,8 @@ def killMotor():
     #raise SystemExit(0)
     #quit()
     #return
-    motorprocess.terminate()
-    motorprocess.join()
+     motorprocess.terminate()
+     motorprocess.join()
+
+
     

@@ -1,7 +1,4 @@
-import RPi.GPIO as GPIO
-import time
-import sys
-import MotorTurn as motor
+import MotorController as motor
 
-motor.setup()
-motor.act1()
+motor.act(5)
+
