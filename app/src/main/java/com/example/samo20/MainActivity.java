@@ -15,9 +15,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Composer = (Button) findViewById(R.id.btn_Composer);
+        Composer = (Button) findViewById(R.id.btn_Composer);            // Invokering af de to buttons
         AudioBook = (Button) findViewById(R.id.btn_AudioBook);
 
+        // Specifik listener til lyt på AudioBook, kalder åben lydbog metode
         AudioBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Specifik listener til lyt på Composer, kalder åben komponistspil metode
         Composer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,16 +35,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void openAudiobook()
+    public void openAudiobook()   // Åbner lydbog
     {
         Intent intent = new Intent(this,AudioBook.class);
         startActivity(intent);
+        this.overridePendingTransition(0, 0);   // Udfør arbejde uden nogen transition
     }
 
-    public void openComposer()
+    public void openComposer()    // Åbner komponistspil
     {
         Intent intent = new Intent(this,Composer.class);
         startActivity(intent);
+        this.overridePendingTransition(0, 0);  // Udfør arbejde uden nogen transition
     }
 
 }

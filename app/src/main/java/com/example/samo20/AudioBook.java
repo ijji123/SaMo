@@ -17,12 +17,12 @@ public class AudioBook extends AppCompatActivity {
         setContentView(R.layout.activity_audio_book);
 
         TBB = (Button) findViewById(R.id.Btn_TBB);
-        //close = (Button) findViewById(R.id.close);
 
         TBB.setOnClickListener(clickListener);
         //close.setOnClickListener(closeClickListener);
     }
 
+    // Listener til tryk af button, åbner Tre Bukke Bruse brugergrænseflade
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -30,9 +30,10 @@ public class AudioBook extends AppCompatActivity {
         }
     };
 
-    public void openTreBukkeBruse(){
+    public void openTreBukkeBruse(){    // Åbner Tre Bukke Bruse brugergrænseflade
         Intent intent = new Intent(this,TreBukkeBruse.class);
         startActivity(intent);
+        this.overridePendingTransition(0, 0); // Udfør arbejde uden nogen transition
     }
 
 

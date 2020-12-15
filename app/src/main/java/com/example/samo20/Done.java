@@ -26,10 +26,10 @@ public class Done extends AppCompatActivity {
         setContentView(R.layout.activity_done);
 
         handler = new Handler(Looper.getMainLooper());
-        pause();
+        pause(); // Automatisk start
     }
 
-    public void pause()
+    public void pause() // Udskyd åbning af hovedmenu i 3 sekunder. Tilføjet således at animationen er bevaret i den ønskede periode
     {
         handler.postDelayed(new Runnable() {
             @Override
@@ -40,12 +40,12 @@ public class Done extends AppCompatActivity {
         }, 3000);
     }
 
-    public void openMainMenu()
+    public void openMainMenu() // Åben næste brugergrænseflade
     {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
-        this.overridePendingTransition(0, 0);
-        finish();
+        this.overridePendingTransition(0, 0); // Udfør arbejde uden nogen transition
+        finish();              // Afslut denne brugergrænseflade
 
     }
 
