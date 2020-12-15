@@ -6,7 +6,7 @@ import time
 import sys
 
 def playSingleSong(number): # Her skal der ikke motor respons til
-    SongAudioList = ["bluetoothtaend1.wav", "bluetoothtaend2.wav"] # Skal udfyldes med musikstykker, de her er placeholders
+    SongAudioList = ["bluetoothtaend1.wav", "bluetoothforbundet.wav", "DTBBAudio3S.mp3"] # Skal udfyldes med musikstykker, de her er placeholders
     player = OMXPlayer(SongAudioList[number])
     
 def halfRotation():    
@@ -38,6 +38,6 @@ def halfRotation():
             for pin in range(4):
                 GPIO.output(ControlPin[pin], seqA[halfstep] [pin])
                 time.sleep(0.0002)
-                
+
+playSingleSong(2)
 halfRotation()
-playSingleSong(1)
