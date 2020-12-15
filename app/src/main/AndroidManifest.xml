@@ -18,11 +18,6 @@
         android:roundIcon="@mipmap/ic_samo_playstore"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".Loading"
-            android:screenOrientation="landscape"
-            android:navigationBarColor="@color/navBarMain"
-            tools:targetApi="lollipop">
-        </activity>
         <activity android:name=".TreBukkeBruse"
             android:screenOrientation="landscape"
             android:navigationBarColor="@color/navBarMain"
@@ -42,7 +37,7 @@
             android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name=".Start"
+            android:name=".Loading"
             android:navigationBarColor="@color/navBarMain"
             tools:targetApi="lollipop"
             android:screenOrientation="landscape">

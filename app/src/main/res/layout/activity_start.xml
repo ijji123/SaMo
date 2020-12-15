@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/animation"
     android:noHistory="true"
-    tools:context=".Start" >
+    tools:context=".Loading" >
 
     <Button
         android:id="@+id/button"
@@ -19,4 +19,5 @@
         android:background="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

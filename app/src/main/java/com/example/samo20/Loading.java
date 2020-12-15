@@ -1,147 +1,68 @@
 package com.example.samo20;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
-import java.util.UUID;
+import android.widget.ImageView;
 
 public class Loading extends AppCompatActivity {
 
-    BluetoothSocket mmSocket;
-    BluetoothDevice mmDevice;
+    IBluetooth bluetooth;
+    ConstraintLayout layout;
+    Handler handler;
 
-    Button test;
-    Button mainmenu;
-
-    OutputStream mmOutputStream;
-
-    public void sendBtMsg(String msg2send){
-        //UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-        try {
-
-            String msg = msg2send;
-            //msg += "\n";
-            mmOutputStream = mmSocket.getOutputStream();
-            mmOutputStream.write(msg.getBytes());
-
-            mmOutputStream.close();
-            mmSocket.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
+        super.onCreate(savedInstanceState);             // Igangsætter baggrundsanimation
+        setContentView(R.layout.activity_start);
+        layout = (ConstraintLayout) findViewById(R.id.layout);
+        layout.setBackgroundResource(R.drawable.animation);
+        AnimationDrawable frameAnimation = (AnimationDrawable) layout.getBackground();
+        frameAnimation.start();
 
-        final Handler handler = new Handler();
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        mmOutputStream = new OutputStream() {
-            @Override
-            public void write(int i) throws IOException {
+        handler = new Handler(Looper.getMainLooper());  // Handler til delay af åben
 
-            }
-        };
+        bluetooth = BluetoothController.getInstance();  // Singleton invokering af Bluetooth interface
+        connect();      // Lokal metode til igangsættelse af bluetooth forbindelse
+    }
 
-        test = (Button) findViewById(R.id.test);
-        mainmenu = (Button) findViewById(R.id.mainmenu);
-
-        final class workerThread implements  Runnable{
-            private String btMsg;
-            UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
-
-            public workerThread(String msg){
-                btMsg = msg;
-            }
-
-            public void sendBtMsg(String command)
-            {
-                (new Thread(new workerThread(command))).start();
-            }
-
-            public void run()
-            {
-                try {
-                    // Connect to the remote device through the socket. This call blocks
-                    // until it succeeds or throws an exception.
-
-                    mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
-                    mmSocket.connect();
-                } catch (IOException connectException) {
-                    // Unable to connect; close the socket and return.
-                    try {
-                        mmSocket.close();
-                    } catch (IOException closeException) {
-
-                    }
-                    return;
-                }
-
-               sendBtMsg(btMsg);
-            }
-        };
-
-        test.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on temp button click
-
-                (new Thread(new workerThread("1"))).start();
-
-            }
-        });
-
-        mainmenu.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                openDoneScreen();
-            }
-        });
-
-
-        if(!mBluetoothAdapter.isEnabled())
-        {
-            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBluetooth,0);
-        }
-
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        if(pairedDevices.size() > 0)
-        {
-            for(BluetoothDevice device : pairedDevices)
-            {
-                if (device.getName().equals("raspberrypi")) // Skal rettes til vores navn
-                {
-                    Log.e("Forbundet Pi", device.getName());
-                    mmDevice = device;
-                    // openDoneScreen();
-                    break;
-                }
-            }
+    public void connect()
+    {
+        bluetooth.connectToBluetooth();     // Iganngsætter bluetooth forbindelse gennem interface
+        if(bluetooth.getStatus() == true){  // Tjekker med bluetooth interfacet, om forbindelse er oprettet
+            pause();    // Hvis det er, igangsæt delay for opdatering af animation
         }
     }
 
-    public void openDoneScreen()
+    public void pause()
+    {
+        handler.postDelayed(new Runnable() { // Delay metode, kald til afspil af forbundet lyd og åben derefter næste brugergrænseflade/opdatering af animationen
+            @Override
+            public void run() {
+                bluetooth.sendCommand("b-1");
+                openDone();
+            }
+        }, 4000);
+    }
+
+    public void openDone() // Åben næste brugergrænseflade
     {
         Intent intent = new Intent(this,Done.class);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);     // Udfør arbejde uden nogen transition
+        finish();         // Afslut denne brugergrænseflade
     }
+
+
 
 }
